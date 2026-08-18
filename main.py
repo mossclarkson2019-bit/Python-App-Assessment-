@@ -26,6 +26,10 @@ root.title("EuroPartPicker")
 
 select_button = tk.Button(
     root,
+    font=("Oswald", 14, "bold"),
+    fg= "#031E49",
+    bg="#4599fe",
+    activebackground="#1e75df",
     text="SELECT PROJECT",
     width=25,
     height=3,
@@ -34,8 +38,18 @@ select_button = tk.Button(
 select_button.pack(pady=10)
 
 
+create_button = tk.Button(
+    root,
+    font=("Oswald", 14, "bold"),
+    fg= "#031E49",
+    bg="#4599fe",
+    activebackground="#1e75df",
+    text="CREATE PROJECT",
+    width=25,
+    height=3,
+)
 
-
+create_button.pack(pady=10)
 
 
 
