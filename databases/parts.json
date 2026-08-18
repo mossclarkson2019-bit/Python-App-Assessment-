@@ -1,0 +1,14 @@
+[
+    {
+        "id": "SACHS_CLUTCH_E46",
+        "name": "Sachs Clutch Kit",
+        "brand": "Sachs",
+        "category": "Drivetrain",
+        "price": 499.99,
+        "compatible_vehicles": [
+            "BMW_E46_328CI"
+        ],
+        "description": "Clutch kit for M52B28TU applications.",
+        "available": true
+    }
+]

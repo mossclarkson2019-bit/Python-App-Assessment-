@@ -1,0 +1,11 @@
+[
+{
+    "id": "BMW_E36_328I",
+    "make": "BMW",
+    "model": "E36 328i",
+    "chassis": "E36",
+    "year_from": 1995,
+    "year_to": 1999,
+    "engine": "M52B28"
+}
+]
