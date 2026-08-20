@@ -26,14 +26,41 @@ header.grid_columnconfigure(0, weight=1)
 header.grid_columnconfigure(1, weight=1)
 header.grid_columnconfigure(2, weight=1)
 
-left = tk.Label( #logo to match the website
+
+
+brand = tk.Canvas(
     header,
-    text="SouthernEuroParts",
-    font=("Oswald", 20, "bold"),
-    fg="white",
-    bg="#031E49"
+    bg="#031E49",
+    highlightthickness=0,
+    height=40,
+    width=250
 )
-left.grid(row=0, column=0, sticky="w", padx=10) #got new 'sticky' syntax from gemini search assist as a grid version of place (which i learnt from the in vscode suggestion and hover explanation)
+
+brand.pack(side="left", padx=10)
+
+brand.create_text(
+    0, 20,
+    text="Southern",
+    font=("Oswald", 20, "bold"),
+    fill="white",
+    anchor="w"
+)
+
+brand.create_text(
+    88, 20,
+    text="Euro",
+    font=("Oswald", 20, "bold"),
+    fill="#4599fe",
+    anchor="w"
+)
+
+brand.create_text(
+    135, 20,
+    text="Parts",
+    font=("Oswald", 20, "bold"),
+    fill="white",
+    anchor="w"
+)
 
 
 
