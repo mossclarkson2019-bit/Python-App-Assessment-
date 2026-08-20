@@ -15,6 +15,7 @@ with open("databases/parts.json", "r") as file:
 # Creating the main window
 root = tk.Tk()
 root.title("SouthernEuroParts PartsPicker")
+root.geometry("800x600")
 
 
 
@@ -33,12 +34,12 @@ brand = tk.Canvas(
     bg="#031E49",
     highlightthickness=0,
     height=40,
-    width=250
+    width=300 #increased from 250 to 300 as the end of the word "Parts" was being cut off
 )
 
 brand.pack(side="left", padx=10)
 
-brand.create_text(
+southern = brand.create_text(
     0, 20,
     text="Southern",
     font=("Oswald", 20, "bold"),
@@ -46,22 +47,30 @@ brand.create_text(
     anchor="w"
 )
 
-brand.create_text(
-    88, 20,
+euro = brand.create_text(
+    0, 20,
     text="Euro",
     font=("Oswald", 20, "bold"),
     fill="#4599fe",
     anchor="w"
 )
 
-brand.create_text(
-    135, 20,
+parts = brand.create_text(
+    0, 20,
     text="Parts",
     font=("Oswald", 20, "bold"),
     fill="white",
     anchor="w"
 )
 
+#making tkinter do the calc and placement work for me instead of playing round with coords
+# Get the width of each text element
+southern_width = brand.bbox(southern)[2] - brand.bbox(southern)[0]
+euro_width = brand.bbox(euro)[2] - brand.bbox(euro)[0]
+
+# Place the text elements one after the other
+brand.coords(euro, southern_width, 20)
+brand.coords(parts, southern_width + euro_width, 20)
 
 
 
