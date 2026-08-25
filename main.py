@@ -12,7 +12,76 @@ with open("databases/parts.json", "r") as file:
     parts = json.load(file)
 
 
-# Creating the main window
+current_user = None  # Variable to store the current user for my sign in feature under the select project button
+
+
+
+def select_project(): # first function of my app
+ if current_user is None: #if not signed in
+    show_sign_in()       #ask to sign in
+ else:
+    show_projects() #otherwise go to the current users project library
+
+
+
+def clear_window(): #function to clear the window of all widgets for swithcing pages, I used gemini search assist to help me understand the syntax and what is and isnt needed
+    for widget in root.winfo_children():
+        widget.destroy()
+
+
+
+
+def show_sign_in(): #function to show the sign in page
+    clear_window()
+
+    title = tk.Label(
+        content, 
+        text="Sign In",
+        font=("Oswald", 20, "bold"),      
+    )
+    title.pack(pady=50)
+
+    username = tk.Entry(content)
+    username.pack(pady=10)
+
+    password = tk.Entry(content, show="*")
+    password.pack(pady=10)
+
+    sign_in_button = tk.Button(
+        content,
+        text="SIGN IN",
+        command=sign_in
+    )
+    sign_in_button.pack(pady=20)
+
+
+    def sign_in(): 
+        global current_user
+        current_user = "user"
+        show_projects()
+
+
+    def show_projects():
+        clear_content()
+
+        title = tk.Label(
+            content,
+            text="Select Project",
+            font=("Arial", 24)
+        )
+        title.pack(pady=50)
+
+        project_button = tk.Button(
+            content,
+            text="My Project"
+        )
+        project_button.pack()
+
+
+
+
+
+        
 root = tk.Tk()
 root.title("SouthernEuroParts PartsPicker")
 root.geometry("800x600")
@@ -97,6 +166,7 @@ select_button = tk.Button( #button to select an existing project, if clicked whi
     text="SELECT PROJECT",
     width=25,
     height=3,
+    command=select_project  
 )
 
 select_button.pack(pady=10)
@@ -123,7 +193,7 @@ footer.pack(side=tk.BOTTOM, fill=tk.X)
 footer_label = tk.Label(
     footer,
     text="© 2023 EuroPartPicker. All rights reserved.",
-    font=("Oswald", 12),
+    font=("Noto Sans Chakma", 12),
     fg="white",
     bg="#031E49"
 )
