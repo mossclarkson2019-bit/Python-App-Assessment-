@@ -1,7 +1,7 @@
 #Imports
 import tkinter as tk
 import json
-import turtle as turtle
+
 
 #loading the data from the JSON files
 
@@ -12,7 +12,6 @@ with open("databases/parts.json", "r") as file:
     parts = json.load(file)
 
 
-current_user = None  # Variable to store the current user for my sign in feature under the select project button
 
 
 
@@ -25,68 +24,86 @@ def select_project(): # first function of my app
 
 
 def clear_window(): #function to clear the window of all widgets for swithcing pages, I used gemini search assist to help me understand the syntax and what is and isnt needed
-    for widget in root.winfo_children():
+    for widget in content.winfo_children():  #was set to root.winfo_children() which destrwoyed evrything including the header and footer, so I changed it to content.winfo_children() to only destroy the content 
         widget.destroy()
 
 
 
 
-def show_sign_in(): #function to show the sign in page
+def show_sign_in():
     clear_window()
 
     title = tk.Label(
-        content, 
+        content,
         text="Sign In",
-        font=("Oswald", 20, "bold"),      
+        font=("Oswald", 24, "bold"),
+        bg="white"
     )
-    title.pack(pady=50)
+    title.pack(pady=40)
 
-    username = tk.Entry(content)
-    username.pack(pady=10)
+    username_label = tk.Label(
+        content,
+        text="Username",
+        bg="white"
+    )
+    username_label.pack()
 
-    password = tk.Entry(content, show="*")
-    password.pack(pady=10)
+    username_entry = tk.Entry(content)
+    username_entry.pack(pady=5)
+
+    password_label = tk.Label( #label above the password entry box
+        content,
+        text="Password",
+        bg="white"
+    )
+    password_label.pack(pady=(15, 0))
+
+    password_entry = tk.Entry(
+        content,
+        show="*" #wont display anything typed in the box, will laer be an option to show the password in plain text if the user wants
+    )
+    password_entry.pack(pady=5)
 
     sign_in_button = tk.Button(
         content,
-        text="SIGN IN",
-        command=sign_in
+        text="SIGN IN"
     )
-    sign_in_button.pack(pady=20)
+    sign_in_button.pack(pady=25)
 
 
-    def sign_in(): 
-        global current_user
-        current_user = "user"
-        show_projects()
 
 
-    def show_projects():
-        clear_content()
 
-        title = tk.Label(
+def sign_in(): 
+    global current_user
+    current_user = "user"
+    show_projects()
+
+
+def show_projects():
+    clear_window()
+
+    title = tk.Label(
             content,
             text="Select Project",
             font=("Arial", 24)
         )
-        title.pack(pady=50)
+    title.pack(pady=50)
 
-        project_button = tk.Button(
+    project_button = tk.Button(
             content,
             text="My Project"
         )
-        project_button.pack()
+    project_button.pack()
 
 
 
 
 
-        
-root = tk.Tk()
+root = tk.Tk() #moved to the top as it is the main window and should be created before any other widgets, then realized this structure is unintuitive as it should just be before the first widget is created not before the functions section
 root.title("SouthernEuroParts PartsPicker")
 root.geometry("800x600")
-
-
+        
 
 
 header = tk.Frame(root, bg="#031E49", height=70)
@@ -156,9 +173,15 @@ centre.place(relx=0.5, rely=0.5, anchor="center") #centering using the middle gr
 
 
 
+content = tk.Frame(root, bg="white") #moved up to top to test if this fixed my issues with the widgets that ref content, it fixed it but moved everything above the header so just moved it below the header and now everthign works corrctly
+content.pack(fill="both", expand=True)
+
+current_user = None  # Variable to store the current user for my sign in feature under the select project button
+
+
 
 select_button = tk.Button( #button to select an existing project, if clicked while signed in it will take you to a project library, if not signed in it will prompt you to
-    root,
+    content,
     font=("Oswald", 14, "bold"),
     fg= "#031E49",
     bg="#4599fe",
@@ -173,7 +196,7 @@ select_button.pack(pady=10)
 
 
 create_button = tk.Button( #button for creating new project. if you clicked while not signed in, it will prompt you to sign in or be a guest before creating
-    root,
+    content,
     font=("Oswald", 14, "bold"),
     fg= "#031E49",
     bg="#4599fe",
@@ -184,6 +207,10 @@ create_button = tk.Button( #button for creating new project. if you clicked whil
 )
 
 create_button.pack(pady=10)
+
+
+
+
 
 
 
