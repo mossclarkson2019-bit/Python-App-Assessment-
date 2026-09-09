@@ -11,7 +11,7 @@ with open("databases/vehicles.json", "r") as file:
 with open("databases/parts.json", "r") as file:
     parts = json.load(file)
 
-
+ 
 
 
 
@@ -29,9 +29,49 @@ def clear_window(): #function to clear the window of all widgets for swithcing p
 
 
 
+def make_back_button(destination):
+        back_button = tk.Button(
+            content,
+            text="BACK",
+            command=destination
+        )
+        back_button.pack(pady=10)
+
+
+def show_home():
+    clear_window()
+
+    select_button = tk.Button(
+        content,
+        font=("Oswald", 14, "bold"),
+        fg="#031E49",
+        bg="#4599fe",
+        activebackground="#1e75df",
+        text="SELECT PROJECT",
+        width=25,
+        height=3,
+        command=select_project
+    )
+    select_button.pack(pady=10)
+
+    create_button = tk.Button(
+        content,
+        font=("Oswald", 14, "bold"),
+        fg="#031E49",
+        bg="#4599fe",
+        activebackground="#1e75df",
+        text="CREATE PROJECT",
+        width=25,
+        height=3
+    )
+    create_button.pack(pady=10)
+
 
 def show_sign_in():
     clear_window()
+
+  
+            
 
     title = tk.Label(
         content,
@@ -70,6 +110,7 @@ def show_sign_in():
     )
     sign_in_button.pack(pady=25)
 
+    make_back_button(show_home)
 
 
 
@@ -180,33 +221,7 @@ current_user = None  # Variable to store the current user for my sign in feature
 
 
 
-select_button = tk.Button( #button to select an existing project, if clicked while signed in it will take you to a project library, if not signed in it will prompt you to
-    content,
-    font=("Oswald", 14, "bold"),
-    fg= "#031E49",
-    bg="#4599fe",
-    activebackground="#1e75df",
-    text="SELECT PROJECT",
-    width=25,
-    height=3,
-    command=select_project  
-)
 
-select_button.pack(pady=10)
-
-
-create_button = tk.Button( #button for creating new project. if you clicked while not signed in, it will prompt you to sign in or be a guest before creating
-    content,
-    font=("Oswald", 14, "bold"),
-    fg= "#031E49",
-    bg="#4599fe",
-    activebackground="#1e75df",
-    text="CREATE PROJECT",
-    width=25,
-    height=3,
-)
-
-create_button.pack(pady=10)
 
 
 
@@ -229,7 +244,7 @@ footer_label.pack(side='right', pady=10)
 
 
 
-
+show_home()  
 
 # Creating the event loop to keep the window visible
 root.mainloop()
