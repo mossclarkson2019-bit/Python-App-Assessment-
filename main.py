@@ -11,7 +11,8 @@ with open("databases/vehicles.json", "r") as file:
 with open("databases/parts.json", "r") as file:
     parts = json.load(file)
 
- 
+with open("databases/projects.json", "r") as file:
+    projects = json.load(file)
 
 
 
