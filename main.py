@@ -14,6 +14,17 @@ with open("databases/parts.json", "r") as file:
 with open("databases/projects.json", "r") as file:
     projects = json.load(file)
 
+with open("databases/users.json", "r") as file:
+    users = json.load(file)
+
+
+current_user = None  # Variable to store the current user for my sign in feature under the select project button
+
+root = tk.Tk() #moved to the top as it is the main window and should be created before any other widgets, then realized this structure is unintuitive as it should just be before the first widget is created not before the functions section
+root.title("SouthernEuroParts PartsPicker")
+root.geometry("800x600")
+
+
 
 
 def select_project(): # first function of my app
@@ -68,6 +79,10 @@ def show_home():
     create_button.pack(pady=10)
 
 
+
+
+
+
 def show_sign_in():
     clear_window()
 
@@ -105,46 +120,65 @@ def show_sign_in():
     )
     password_entry.pack(pady=5)
 
+    error_label = tk.Label( #the error label variable 
+    content,
+    text="",
+    fg="red",
+    bg="white"
+    )
+    error_label.pack()
+
     sign_in_button = tk.Button(
         content,
-        text="SIGN IN"
+        text="SIGN IN",
+        command=lambda: sign_in(
+            username_entry.get(),
+            password_entry.get(),
+            error_label
+        )
+     )
+    sign_in_button.pack(pady=20)
+
+    make_back_button(show_home)
+
+def sign_in(username, password, error_label):
+    global current_user #holds the the current user that has signed in
+
+    for user in users:
+        if user["username"] == username and user["password"] == password:   #i used claude ai to fully understand how this syntax works and what is and isnt needed
+            current_user = username
+            show_projects()
+            return
+
+    error_label.config(text="Incorrect username or password. Please try again.") #error label that identifies to users that they entered somehting incorrectly 
+
+def show_projects():
+    clear_window()
+
+    title = tk.Label(
+        content,
+        text="My Projects",
+        font=("Arial", 24),
+        bg="white"
     )
-    sign_in_button.pack(pady=25)
+    title.pack(pady=30)
+
+    for project in projects:                   #function to show the current users projects, i uised gemini search assist
+        if project["owner"] == current_user:
+
+            project_button = tk.Button(
+                content,
+                text=project["name"]
+            )
+            project_button.pack(pady=5)
 
     make_back_button(show_home)
 
 
 
 
-def sign_in(): 
-    global current_user
-    current_user = "user"
-    show_projects()
 
 
-def show_projects():
-    clear_window()
-
-    title = tk.Label(
-            content,
-            text="Select Project",
-            font=("Arial", 24)
-        )
-    title.pack(pady=50)
-
-    project_button = tk.Button(
-            content,
-            text="My Project"
-        )
-    project_button.pack()
-
-
-
-
-
-root = tk.Tk() #moved to the top as it is the main window and should be created before any other widgets, then realized this structure is unintuitive as it should just be before the first widget is created not before the functions section
-root.title("SouthernEuroParts PartsPicker")
-root.geometry("800x600")
         
 
 
@@ -217,15 +251,6 @@ centre.place(relx=0.5, rely=0.5, anchor="center") #centering using the middle gr
 
 content = tk.Frame(root, bg="white") #moved up to top to test if this fixed my issues with the widgets that ref content, it fixed it but moved everything above the header so just moved it below the header and now everthign works corrctly
 content.pack(fill="both", expand=True)
-
-current_user = None  # Variable to store the current user for my sign in feature under the select project button
-
-
-
-
-
-
-
 
 
 
