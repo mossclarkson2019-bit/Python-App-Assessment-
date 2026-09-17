@@ -1,11 +1,14 @@
 [
-  {
-    "username": "admin",
-    "password": "admin"
-  }  
-  ,
-  {
-    "username": "Moss",
-    "password": "anaphaL0s"
-  }
+    {
+        "username": "admin",
+        "password": "admin"
+    },
+    {
+        "username": "Moss",
+        "password": "anaphaL0s"
+    },
+    {
+        "username": "Diddy",
+        "password": "BabyOil"
+    }
 ]

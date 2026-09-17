@@ -139,7 +139,19 @@ def show_sign_in():
      )
     sign_in_button.pack(pady=20)
 
+
+    create_account_button = tk.Button(
+    content,
+    text="CREATE ACCOUNT",
+    command=show_create_account
+    )
+
+    create_account_button.pack(pady=5)
+
+    
     make_back_button(show_home)
+
+
 
 def sign_in(username, password, error_label):
     global current_user #holds the the current user that has signed in
@@ -151,6 +163,116 @@ def sign_in(username, password, error_label):
             return
 
     error_label.config(text="Incorrect username or password. Please try again.") #error label that identifies to users that they entered somehting incorrectly 
+
+
+
+def show_create_account():
+    clear_window()
+
+    title = tk.Label(
+        content,
+        text="Create Account",
+        font=("Oswald", 24, "bold"),
+        bg="white"
+    )
+    title.pack(pady=30)
+
+    username_label = tk.Label(
+        content,
+        text="Username",
+        bg="white"
+    )
+    username_label.pack()
+
+    username_entry = tk.Entry(content)
+    username_entry.pack(pady=5)
+
+    password_label = tk.Label(
+        content,
+        text="Password",
+        bg="white"
+    )
+    password_label.pack(pady=(15, 0))
+
+    password_entry = tk.Entry(
+        content,
+        show="*"
+    )
+    password_entry.pack(pady=5)
+
+    confirm_label = tk.Label(
+        content,
+        text="Confirm Password",
+        bg="white"
+    )
+    confirm_label.pack(pady=(15, 0))
+
+    confirm_entry = tk.Entry(
+        content,
+        show="*"
+    )
+    confirm_entry.pack(pady=5)
+
+    error_label = tk.Label(
+        content,
+        text="",
+        fg="red",
+        bg="white"
+    )
+    error_label.pack()
+
+    create_button = tk.Button(
+        content,
+        text="CREATE ACCOUNT",
+        command=lambda: create_account(
+            username_entry.get(),
+            password_entry.get(),
+            confirm_entry.get(),
+            error_label
+        )
+    )
+    create_button.pack(pady=20)
+
+    make_back_button(show_sign_in)
+
+
+
+def create_account(username, password, confirm_password, error_label):
+
+    if username == "":
+        error_label.config(text="Please enter a username")
+        return
+
+    if password == "":
+        error_label.config(text="Please enter a password")
+        return
+
+    if password != confirm_password:
+        error_label.config(text="Passwords do not match")
+        return
+
+    for user in users:
+        if user["username"] == username:
+            error_label.config(text="Username already exists")
+            return
+
+    new_user = {
+        "username": username,
+        "password": password
+    }
+
+    users.append(new_user)
+
+    with open("databases/users.json", "w") as file:
+        json.dump(users, file, indent=4)
+
+    error_label.config(
+        text="Account created successfully",
+        fg="green"
+    )
+
+
+
 
 def show_projects():
     clear_window()
