@@ -7,5 +7,22 @@
     "year_from": 1995,
     "year_to": 1999,
     "engine": "M52B28"
+},
+
+{
+        "id": 1,
+        "make": "BMW",
+        "model": "E39 540i",
+        "year_start": 1996,
+        "year_end": 2003,
+        "engine": "M62B44"
+},
+{
+        "id": 2,
+        "make": "BMW",
+        "model": "E39 528i",
+        "year_start": 1996,
+        "year_end": 2000,
+        "engine": "M52B28TU"
 }
 ]

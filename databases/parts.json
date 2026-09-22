@@ -1,14 +1,26 @@
 [
     {
-        "id": "SACHS_CLUTCH_E46",
-        "name": "Sachs Clutch Kit",
-        "brand": "Sachs",
-        "category": "Drivetrain",
-        "price": 499.99,
+        "id": 1,
+        "name": "GT2560R Turbo",
+        "category": "Turbocharger",
+        "brand": "Garrett",
+        "price": 1200,
+        "compatible_engines": ["M62B44"],
+        "compatible_vehicles": []
+    },
+    {
+        "id": 2,
+        "name": "E39 Pre-Facelift Grille",
+        "category": "Exterior",
+        "brand": "BMW",
+        "price": 150,
+        "compatible_engines": [],
         "compatible_vehicles": [
-            "BMW_E46_328CI"
-        ],
-        "description": "Clutch kit for M52B28TU applications.",
-        "available": true
+            {
+                "model": "E39",
+                "year_start": 1996,
+                "year_end": 2000
+            }
+        ]
     }
 ]
