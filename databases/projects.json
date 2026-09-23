@@ -1,7 +1,10 @@
 [
     {
-        "name": "E39 540i Turbo",
-        "owner": "Moss"
+        "id": 1,
+        "name": "My E39 Build",
+        "owner": "Moss",
+        "vehicle": "E39 540i",
+        "parts": []
     },
     {
         "name": "E46 328Ci",
@@ -10,9 +13,5 @@
     {
         "name": "Golf GTI Build",
         "owner": "admin"
-    },
-    {
-        "name": "Diddy Mobile",
-        "owner": "Diddy"
     }
 ]

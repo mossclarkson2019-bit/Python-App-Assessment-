@@ -390,6 +390,8 @@ def get_project_vehicle(project):
     return None
 
 
+
+
 def check_compatibility(part, project): # checks compatability between a part and a project based on the vehicle and engine
     vehicle = get_project_vehicle(project) # fetches the vehicle data for the current project
 
@@ -577,7 +579,10 @@ footer_label = tk.Label(
 footer_label.pack(side='right', pady=10)
 
 
+
 show_home()
 
 # Creating the event loop to keep the window visible
 root.mainloop()
+
+
