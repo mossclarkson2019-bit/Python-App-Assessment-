@@ -8,18 +8,35 @@
     {
         "name": "E46 328Ci",
         "owner": "Moss",
-        "vehicle": "E46 328Ci",
+        "vehicle": "BMW E46 328Ci",
         "parts": []
     },
     {
         "name": "Golf GTI Build",
         "owner": "admin",
-        "vehicle": "Golf GTI",
+        "vehicle": "Volkswagen Golf GTI",
         "parts": []
     },
     {
         "name": "TEST",
         "owner": "Moss",
         "vehicle": "Volkswagen Golf GTI"
+    },
+    {
+        "name": "jew",
+        "owner": "greg",
+        "vehicle": "Volkswagen Golf GTI"
+    },
+    {
+        "name": "dew",
+        "owner": "greg",
+        "vehicle": "BMW E36 328i",
+        "parts": []
+    },
+    {
+        "name": "c",
+        "owner": "greg",
+        "vehicle": "BMW E39 528i",
+        "parts": []
     }
 ]

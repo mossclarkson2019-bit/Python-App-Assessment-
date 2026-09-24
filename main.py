@@ -386,7 +386,7 @@ def get_project_vehicle(project):
 
         full_name = vehicle["make"] + " " + vehicle["model"] # combines the make and model of the vehicle to match the format stored in the project data
 
-        if full_name == project["vehicle"]: #
+        if full_name == project.get("vehicle"): # .get() instead of [] so a project missing this piece of data returns None instead of crashing
             return vehicle #
 
     return None
@@ -400,17 +400,17 @@ def check_compatibility(part, project): # checks compatability between a part an
     if vehicle is None: # if the vehicle isnt found, it returns false indicating incompatibility
         return False
 
-    # checks if the part is directly compatible with the vehicle
-    if project["vehicle"] in part["compatible_vehicles"]:
+        # checks if the part is directly compatible with the vehicle
+    if project.get("vehicle") in part.get("compatible_vehicles", []): # .get() on both sides so a missing piece of data returns a safe default instead of crashing
         return True
 
-    # checks if the part is compatible with the vehicle's engine
-    if vehicle["engine"] in part["compatible_engines"]:
+       # checks if the part is compatible with the vehicle's engine
+    if vehicle["engine"] in part.get("compatible_engines", []):
         return True
 
     return False
 
-
+#i forgot to add seaech_term="" to the brackets which was causing an error when the function was called without a search term, so I added it and the program now works correctly
 def show_part_library(project, search_term=""): # part library page that displays all parts, their compatibility status with the current project and their price. I used claude ai to understand how to refer to the compability check and display it and used a combination of my html/css knowledge, my grok learning and claude ai to figure out the syntax for the price and name labels
 
     clear_window()
@@ -420,6 +420,7 @@ def show_part_library(project, search_term=""): # part library page that display
         text="Part Library",
         font=("Oswald", 24, "bold"),
         bg="white"
+
     )
     title.pack(pady=20)
        # search function
