@@ -5,17 +5,29 @@ from tkinter import ttk
 
 #loading the data from the JSON files
 
-with open("databases/vehicles.json", "r") as file:
-    vehicles = json.load(file)                 # used gemini seach assist to fully understand the sytax and what is and isnt needed
+try:
+    with open("databases/vehicles.json", "r") as file:
+        vehicles = json.load(file)                 # used claude to understand how to fix the not opening issue in the case of a missing Json file, i renamed parts.json to part.json and it wouldnt open so i fixed it by adding a try/except statement to catch the error and start with an empty list instead of crashing on startup
+except FileNotFoundError: # if the file is missing, start with an empty list instead of crashing on startup
+    vehicles = []                 
 
-with open("databases/parts.json", "r") as file:
-    parts = json.load(file)
+try:
+    with open("databases/parts.json", "r") as file:
+        parts = json.load(file)
+except FileNotFoundError:
+    parts = []
 
-with open("databases/projects.json", "r") as file:
-    projects = json.load(file)
+try:
+    with open("databases/projects.json", "r") as file:
+        projects = json.load(file)
+except FileNotFoundError:
+    projects = []
 
-with open("databases/users.json", "r") as file:
-    users = json.load(file)
+try:
+    with open("databases/users.json", "r") as file:
+        users = json.load(file)
+except FileNotFoundError:
+    users = []
 
 
 current_user = None  # Variable to store the current user for my sign in feature under the select project button

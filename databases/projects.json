@@ -21,22 +21,5 @@
         "name": "TEST",
         "owner": "Moss",
         "vehicle": "Volkswagen Golf GTI"
-    },
-    {
-        "name": "jew",
-        "owner": "greg",
-        "vehicle": "Volkswagen Golf GTI"
-    },
-    {
-        "name": "dew",
-        "owner": "greg",
-        "vehicle": "BMW E36 328i",
-        "parts": []
-    },
-    {
-        "name": "c",
-        "owner": "greg",
-        "vehicle": "BMW E39 528i",
-        "parts": []
     }
 ]
