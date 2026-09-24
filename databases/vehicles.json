@@ -4,21 +4,21 @@
     "make": "BMW",
     "model": "E36 328i",
     "chassis": "E36",
-    "year_from": 1995,
-    "year_to": 1999,
+    "year_start": 1995,
+    "year_end": 1999,
     "engine": "M52B28"
 },
 
 {
-        "id": 1,
+        "id": "BMW_E39_540I",
         "make": "BMW",
         "model": "E39 540i",
-        "year_start": 1996,
+        "year_start": 2000,
         "year_end": 2003,
         "engine": "M62B44"
 },
 {
-        "id": 2,
+        "id": "BMW_E39_528I",
         "make": "BMW",
         "model": "E39 528i",
         "year_start": 1996,

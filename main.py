@@ -25,6 +25,8 @@ root.title("SouthernEuroParts PartsPicker")
 root.geometry("800x600")
 
 
+# Functions section
+
 def show_projects():
     clear_window()
 
@@ -57,7 +59,7 @@ def select_project(): # first function of my app
         show_projects() #otherwise go to the current users project library
 
 
-def select_create_project():
+def select_create_project(): # function to select the create project page, it checks if the user is signed in and if not, it prompts them to sign in before allowing them to create a project
     if current_user is None:
         show_sign_in(show_create_project)
     else:
@@ -69,7 +71,7 @@ def clear_window(): #function to clear the window of all widgets for swithcing p
         widget.destroy()
 
 
-def make_back_button(destination):
+def make_back_button(destination): #reusable function to create a back button that takes the user to the specified destination page
         back_button = tk.Button(
             content,
             text="BACK",
@@ -78,10 +80,10 @@ def make_back_button(destination):
         back_button.pack(pady=10)
 
 
-def show_home():
+def show_home(): # function to show the home page with options to select or create a project
     clear_window()
 
-    select_button = tk.Button(
+    select_button = tk.Button(            # button to select a project
         content,
         font=("Oswald", 14, "bold"),
         fg="#031E49",
@@ -94,7 +96,7 @@ def show_home():
     )
     select_button.pack(pady=10)
 
-    create_button = tk.Button(
+    create_button = tk.Button(              # button to create a new project
     content,
     font=("Oswald", 14, "bold"),
     fg="#031E49",
@@ -108,7 +110,7 @@ def show_home():
     create_button.pack(pady=10)
 
 
-def show_create_project():
+def show_create_project():                 # function to show the create project page
     clear_window()
 
     title = tk.Label(
@@ -170,7 +172,7 @@ def show_create_project():
     make_back_button(show_home)
 
 
-def create_project(project_name, vehicle, error_label):
+def create_project(project_name, vehicle, error_label): # function to create a new project, it checks for empty fields and saves the new project data to the projects.json file. i extrapolated my knowledge of the create_account function to create this function
 
     if project_name == "":
         error_label.config(text="Please enter a project name")
@@ -194,7 +196,7 @@ def create_project(project_name, vehicle, error_label):
     show_projects()
 
 
-def show_sign_in(destination=show_projects):
+def show_sign_in(destination=show_projects):  # function to show the sign in page, it takes an optional destination parameter that defines where the user will be taken after signing in i swapped to this as i had everything hardcoded which lead to my create project function taking the user to the project library instead of the create project page after signing in, so now it takes the user to the page they were trying to access before being prompted to sign in
     clear_window()
 
     title = tk.Label(
@@ -273,10 +275,10 @@ def sign_in(username, password, error_label, destination=show_projects):
     error_label.config(text="Incorrect username or password. Please try again.") #error label that identifies to users that they entered somehting incorrectly
 
 
-def show_create_account():
+def show_create_account(): # create account page, adapted from the sign in page
     clear_window()
 
-    title = tk.Label(
+    title = tk.Label(          
         content,
         text="Create Account",
         font=("Oswald", 24, "bold"),
@@ -307,14 +309,14 @@ def show_create_account():
     )
     password_entry.pack(pady=5)
 
-    confirm_label = tk.Label(
+    confirm_label = tk.Label(           #label for the confirm password entry box, this is to ensure the user hasnt made a typo when entering their password
         content,
         text="Confirm Password",
         bg="white"
     )
     confirm_label.pack(pady=(15, 0))
 
-    confirm_entry = tk.Entry(
+    confirm_entry = tk.Entry(             # added confirm password entry box compared to the sign in page
         content,
         show="*"
     )
@@ -328,7 +330,7 @@ def show_create_account():
     )
     error_label.pack()
 
-    create_button = tk.Button(
+    create_button = tk.Button(             # button to create the account, it calls the create_account function when clicked 
         content,
         text="CREATE ACCOUNT",
         command=lambda: create_account(
@@ -343,22 +345,22 @@ def show_create_account():
     make_back_button(show_sign_in)
 
 
-def create_account(username, password, confirm_password, error_label):
+def create_account(username, password, confirm_password, error_label): # function to create a new user account, it checks for empty fields, password confirmation, and existing usernames before saving the new user data to the users.json file. I used claude ai to understand how to create the first if/return statement and then adapted this to the rest of the function
 
-    if username == "":
+    if username == "":                                          # checks if the username field is empty and displays an error message if it is
         error_label.config(text="Please enter a username")
         return
 
-    if password == "":
+    if password == "":                                          # checks if the password field is empty and displays an error message if it is
         error_label.config(text="Please enter a password")
         return
 
-    if password != confirm_password:
+    if password != confirm_password:                            # checks if the password and confirm password fields match and displays an error message if they don't
         error_label.config(text="Passwords do not match")
         return
 
     for user in users:
-        if user["username"] == username:
+        if user["username"] == username:                        # checks if the username already exists in the users list and displays an error message if it does
             error_label.config(text="Username already exists")
             return
 
@@ -369,10 +371,10 @@ def create_account(username, password, confirm_password, error_label):
 
     users.append(new_user)
 
-    with open("databases/users.json", "w") as file:
+    with open("databases/users.json", "w") as file: # writes the new user data to the users.json file, ensuring that the new account is saved 
         json.dump(users, file, indent=4)
 
-    error_label.config(
+    error_label.config(                        # displays a success message to the user after successfully creating an account
         text="Account created successfully",
         fg="green"
     )
@@ -428,11 +430,15 @@ def show_part_library(project): # part library page that displays all parts, the
             content,
             bg="#eeeeee"
         )
+        
+
         part_frame.pack(
             fill="x",
             padx=50,
             pady=5
         )
+
+        part_frame.bind("<Button-1>", lambda e, p=part: show_part_info(p, project)) #binds a click event to the part frame, so when the user clicks on a part, it will show the part info page for that part
 
         name_label = tk.Label(
             part_frame,
@@ -441,23 +447,28 @@ def show_part_library(project): # part library page that displays all parts, the
             bg="#eeeeee"
         )
         name_label.pack(side="left", padx=10)
-
+        name_label.bind("<Button-1>", lambda e, p=part: show_part_info(p, project))
+        
+        
         price_label = tk.Label(
             part_frame,
             text="$" + str(part["price"]),
             bg="#eeeeee"
         )
         price_label.pack(side="left", padx=10)
+        price_label.bind("<Button-1>", lambda e, p=part: show_part_info(p, project))
 
-        if compatible:
+
+        if compatible:                             #if the part is compatible with the project, display a green "Compatible" label
             compatibility_label = tk.Label(
                 part_frame,
                 text="Compatible",
                 fg="green",
                 bg="#eeeeee"
             )
+            
         else:
-            compatibility_label = tk.Label(
+            compatibility_label = tk.Label(       #if not, the pragram will display a red "Not confirmed" label, this is because there are some circumstances where it may be compatible but not confirmed
                 part_frame,
                 text="Not confirmed",
                 fg="red",
@@ -465,8 +476,112 @@ def show_part_library(project): # part library page that displays all parts, the
             )
 
         compatibility_label.pack(side="left", padx=10)
+        compatibility_label.bind("<Button-1>", lambda e, p=part: show_part_info(p, project))
+    make_back_button(lambda: open_project(project))
+
+
+
+
+
+
+def get_part_by_id(part_id): #fetches a part from the database based on its id number, claude ai was used to help me understand how the following syntax throughout the part library and project functions could work
+    for part in parts:
+        if part["id"] == part_id:
+            return part
+    return None
+
+
+def save_projects(): #saves the current state of the projects data to the projects.json file, ensuring that any changes made to the projects are maintained across sessions
+    with open("databases/projects.json", "w") as file:
+        json.dump(projects, file, indent=4)
+
+
+def add_part_to_project(part, project): #function to add a part to the current project, it ads the part id to the projects parts list and saves the updated projects data to projects.json, then shows the part info page for the added part
+    project.setdefault("parts", [])
+    if part["id"] not in project["parts"]:
+        project["parts"].append(part["id"])
+        save_projects()
+    show_part_info(part, project)
+
+
+def remove_part_from_project(part_id, project): #function to remove a part frm the current project, it takes the part id being referenced by the user and the project, then removes the part from the projects parts list and saves the updated projects data to projects.json
+    project["parts"].remove(part_id)
+    save_projects()
+    show_selected_parts(project)
+
+
+def show_part_info(part, project): # function to display detailed information about a specific part
+    clear_window()
+
+    compatible = check_compatibility(part, project) # checks if the part is compatible with the project and stores the result in the variable 'compatible'
+    already_added = part["id"] in project.get("parts", [])
+
+    title = tk.Label(content, text=part["name"], font=("Oswald", 24, "bold"), bg="white")
+    title.pack(pady=20)
+
+    details_label = tk.Label(
+        content,
+        text=part.get("category", "Unknown") + " \u2013 $" + str(part["price"]),
+        bg="white"
+    )
+    details_label.pack(pady=5)
+
+    compatibility_label = tk.Label( # label that displays the compatibility status of the part with the current project, changing color based on compatibility
+        content,
+        text="Compatible" if compatible else "Not confirmed compatible",
+        fg="green" if compatible else "red",
+        bg="white"
+    )
+    compatibility_label.pack(pady=10)
+
+    if already_added:
+        status_label = tk.Label(content, text="Already in this project", fg="green", bg="white")
+        status_label.pack()
+    else:
+        add_button = tk.Button(
+            content,
+            text="ADD TO PROJECT",
+            command=lambda: add_part_to_project(part, project)
+        )
+        add_button.pack(pady=10)
+
+    make_back_button(lambda: show_part_library(project))
+
+
+def show_selected_parts(project): # function to display all parts selected for the current project
+    clear_window()
+
+    title = tk.Label(content, text="My Selected Parts", font=("Oswald", 24, "bold"), bg="white")
+    title.pack(pady=20)
+
+    total = 0
+
+    for part_id in project.get("parts", []):
+        part = get_part_by_id(part_id)
+        if part is None:
+            continue
+
+        total = total + part["price"]
+
+        part_frame = tk.Frame(content, bg="#eeeeee")
+        part_frame.pack(fill="x", padx=50, pady=5)
+
+        label = tk.Label(part_frame, text=part["name"] + " \u2013 $" + str(part["price"]), bg="#eeeeee")
+        label.pack(side="left", padx=10)
+
+        remove_button = tk.Button(
+            part_frame,
+            text="REMOVE",
+            command=lambda pid=part_id: remove_part_from_project(pid, project)
+        )
+        remove_button.pack(side="right", padx=10)
+
+    total_label = tk.Label(content, text="TOTAL: $" + str(total), font=("Arial", 14, "bold"), bg="white")
+    total_label.pack(pady=20)
 
     make_back_button(lambda: open_project(project))
+
+
 
 
 def open_project(project):
@@ -495,12 +610,21 @@ def open_project(project):
     )
     browse_button.pack(pady=20)
 
+    selected_parts_button = tk.Button(
+    content,
+    text="MY SELECTED PARTS",
+    command=lambda: show_selected_parts(project)
+)
+    selected_parts_button.pack(pady=10)
+    
     make_back_button(show_projects)
 
 
+# GUI Layout section
+
 header = tk.Frame(root, bg="#031E49", height=70)
 header.pack(fill=tk.X)
-
+# header grid configuration, very similar to the html website header grid. its split into 3 columns, the first for the logo
 header.grid_columnconfigure(0, weight=1)
 header.grid_columnconfigure(1, weight=1)
 header.grid_columnconfigure(2, weight=1)
@@ -570,7 +694,7 @@ footer.pack(side=tk.BOTTOM, fill=tk.X)
 
 footer_label = tk.Label(
     footer,
-    text="© 2023 EuroPartPicker. All rights reserved.",
+    text="© 2026 EuroPartPicker. All rights reserved.", #changed to current
     font=("Noto Sans Chakma", 12),
     fg="white",
     bg="#031E49"
@@ -580,7 +704,7 @@ footer_label.pack(side='right', pady=10)
 
 
 
-show_home()
+show_home() # shows the home page when the app is first opened
 
 # Creating the event loop to keep the window visible
 root.mainloop()

@@ -6,7 +6,7 @@
         "brand": "Garrett",
         "price": 1200,
         "compatible_engines": ["M62B44"],
-        "compatible_vehicles": []
+        "compatible_vehicles": ["BMW_E39_540I"]
     },
     {
         "id": 2,

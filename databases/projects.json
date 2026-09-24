@@ -1,17 +1,23 @@
 [
     {
-        "id": 1,
         "name": "My E39 Build",
         "owner": "Moss",
-        "vehicle": "E39 540i",
-        "parts": []
+        "vehicle": "BMW E39 540i",
+        "parts": [
+            1,
+            2
+        ]
     },
     {
         "name": "E46 328Ci",
-        "owner": "Moss"
+        "owner": "Moss",
+        "vehicle": "E46 328Ci",
+        "parts": []
     },
     {
         "name": "Golf GTI Build",
-        "owner": "admin"
+        "owner": "admin",
+        "vehicle": "Golf GTI",
+        "parts": []
     }
 ]
