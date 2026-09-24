@@ -6,7 +6,7 @@
         "brand": "Garrett",
         "price": 1200,
         "compatible_engines": ["M62B44"],
-        "compatible_vehicles": ["BMW_E39_540I"]
+        "compatible_vehicles": ["BMW E39 540i"]
     },
     {
         "id": 2,
@@ -15,12 +15,6 @@
         "brand": "BMW",
         "price": 150,
         "compatible_engines": [],
-        "compatible_vehicles": [
-            {
-                "model": "E39",
-                "year_start": 1996,
-                "year_end": 2000
-            }
-        ]
+        "compatible_vehicles": ["BMW E39 540i", "BMW E39 528i"]
     }
 ]
