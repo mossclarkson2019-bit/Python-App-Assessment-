@@ -39,7 +39,7 @@ def show_projects():
     )
     title.pack(pady=30)
 
-    for project in projects:                   #function to show the current users projects, i uised gemini search assist
+    for project in projects:                   #function to show the current users projects, i uised gemini search assist to help me understand the syntax that could be used
         if project["owner"] == current_user:
 
             project_button = tk.Button(
@@ -411,7 +411,7 @@ def check_compatibility(part, project): # checks compatability between a part an
     return False
 
 
-def show_part_library(project): # part library page that displays all parts, their compatibility status with the current project and their price. I used claude ai to understand how to refer to the compability check and display it and used a combination of my html/css knowledge, my grok learning and claude ai to figure out the syntax for the price and name labels
+def show_part_library(project, search_term=""): # part library page that displays all parts, their compatibility status with the current project and their price. I used claude ai to understand how to refer to the compability check and display it and used a combination of my html/css knowledge, my grok learning and claude ai to figure out the syntax for the price and name labels
 
     clear_window()
 
@@ -422,7 +422,7 @@ def show_part_library(project): # part library page that displays all parts, the
         bg="white"
     )
     title.pack(pady=20)
-
+       # search function
     search_entry = tk.Entry(content)
     search_entry.insert(0, search_term)   # keeps whatever was searched last time the page reloads
     search_entry.pack(pady=5)
