@@ -24,5 +24,21 @@
         "year_start": 1996,
         "year_end": 2000,
         "engine": "M52B28TU"
+},
+{
+        "id": "BMW_E46_328CI",
+        "make": "BMW",
+        "model": "E46 328Ci",
+        "year_start": 2000,
+        "year_end": 2006,
+        "engine": "M52B28"
+},
+{
+        "id": "VW_GOLF_GTI",
+        "make": "Volkswagen",
+        "model": "Golf GTI",
+        "year_start": 2015,
+        "year_end": 2020,
+        "engine": "EA888"
 }
 ]

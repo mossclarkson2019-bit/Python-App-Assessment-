@@ -423,7 +423,21 @@ def show_part_library(project): # part library page that displays all parts, the
     )
     title.pack(pady=20)
 
+    search_entry = tk.Entry(content)
+    search_entry.insert(0, search_term)   # keeps whatever was searched last time the page reloads
+    search_entry.pack(pady=5)
+
+    search_button = tk.Button(
+        content,
+        text="SEARCH",
+        command=lambda: show_part_library(project, search_entry.get())
+    )
+    search_button.pack(pady=5)
+
     for part in parts:
+
+        if search_term.lower() not in part["name"].lower(): # skips any part whose name doesn't contain the search text
+            continue
 
         compatible = check_compatibility(part, project) # checks if the part is compatible with the project and stores the result in the variable 'compatible'
         part_frame = tk.Frame(

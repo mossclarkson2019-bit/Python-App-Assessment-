@@ -3,10 +3,7 @@
         "name": "My E39 Build",
         "owner": "Moss",
         "vehicle": "BMW E39 540i",
-        "parts": [
-            1,
-            2
-        ]
+        "parts": []
     },
     {
         "name": "E46 328Ci",
@@ -19,5 +16,10 @@
         "owner": "admin",
         "vehicle": "Golf GTI",
         "parts": []
+    },
+    {
+        "name": "TEST",
+        "owner": "Moss",
+        "vehicle": "Volkswagen Golf GTI"
     }
 ]

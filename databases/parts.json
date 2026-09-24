@@ -5,7 +5,7 @@
         "category": "Turbocharger",
         "brand": "Garrett",
         "price": 1200,
-        "compatible_engines": ["M62B44"],
+        "compatible_engines": ["M62B44","M52B28"],
         "compatible_vehicles": ["BMW E39 540i"]
     },
     {
