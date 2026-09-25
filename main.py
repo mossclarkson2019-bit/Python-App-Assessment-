@@ -151,7 +151,7 @@ def show_create_project():                 # function to show the create project
     vehicle_label.pack(pady=(15, 0))
 
     vehicle_options = []
-    for vehicle in vehicles:
+    for vehicle in vehicles:            # builds the dropdown list by combining make + model into the same "make model" format used to match against projects later
         vehicle_options.append(vehicle["make"] + " " + vehicle["model"])
 
     vehicle_combobox = ttk.Combobox(
@@ -528,7 +528,7 @@ def delete_project(project): # deletes a project entirely, with a confirmation p
         show_projects()
 
 
-def add_part_to_project(part, project): #function to add a part to the current project, it ads the part id to the projects parts list and saves the updated projects data to projects.json, then shows the part info page for the added part
+def add_part_to_project(part, project): # function to add a part to the current project, claude ai was used to confirm the syntaxs 
     project.setdefault("parts", [])
     project["parts"].append(part["id"])
     save_projects()
