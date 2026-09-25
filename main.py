@@ -386,10 +386,7 @@ def create_account(username, password, confirm_password, error_label): # functio
     with open("databases/users.json", "w") as file: # writes the new user data to the users.json file, ensuring that the new account is saved 
         json.dump(users, file, indent=4)
 
-    error_label.config(                        # displays a success message to the user after successfully creating an account
-        text="Account created successfully",
-        fg="green"
-    )
+    show_sign_in() # takes the user straight to sign in now that their account exists, per trial feedback
 
 
 def get_project_vehicle(project):
@@ -525,9 +522,8 @@ def save_projects(): #saves the current state of the projects data to the projec
 
 def add_part_to_project(part, project): #function to add a part to the current project, it ads the part id to the projects parts list and saves the updated projects data to projects.json, then shows the part info page for the added part
     project.setdefault("parts", [])
-    if part["id"] not in project["parts"]:
-        project["parts"].append(part["id"])
-        save_projects()
+    project["parts"].append(part["id"])
+    save_projects()
     show_part_info(part, project)
 
 
@@ -541,7 +537,7 @@ def show_part_info(part, project): # function to display detailed information ab
     clear_window()
 
     compatible = check_compatibility(part, project) # checks if the part is compatible with the project and stores the result in the variable 'compatible'
-    already_added = part["id"] in project.get("parts", [])
+    quantity_in_project = project.get("parts", []).count(part["id"]) # how many units of this part are already in the project
 
     title = tk.Label(content, text=part["name"], font=("Oswald", 24, "bold"), bg="white")
     title.pack(pady=20)
@@ -561,16 +557,16 @@ def show_part_info(part, project): # function to display detailed information ab
     )
     compatibility_label.pack(pady=10)
 
-    if already_added:
-        status_label = tk.Label(content, text="Already in this project", fg="green", bg="white")
+    if quantity_in_project > 0:
+        status_label = tk.Label(content, text="In Project (x" + str(quantity_in_project) + ")", fg="green", bg="white")
         status_label.pack()
-    else:
-        add_button = tk.Button(
-            content,
-            text="ADD TO PROJECT",
-            command=lambda: add_part_to_project(part, project)
-        )
-        add_button.pack(pady=10)
+
+    add_button = tk.Button( # always shown now, so the user can add more than one unit
+        content,
+        text="ADD ANOTHER" if quantity_in_project > 0 else "ADD TO PROJECT",
+        command=lambda: add_part_to_project(part, project)
+    )
+    add_button.pack(pady=10)
 
     make_back_button(lambda: show_part_library(project))
 
@@ -582,23 +578,34 @@ def show_selected_parts(project): # function to display all parts selected for t
     title.pack(pady=20)
 
     total = 0
+    seen_ids = [] # tracks which part ids have already been shown, so duplicates group into one row
 
     for part_id in project.get("parts", []):
+        if part_id in seen_ids:
+            continue
+        seen_ids.append(part_id)
+
         part = get_part_by_id(part_id)
         if part is None:
             continue
 
-        total = total + part["price"]
+        quantity = project["parts"].count(part_id)
+        subtotal = part["price"] * quantity
+        total = total + subtotal
 
         part_frame = tk.Frame(content, bg="#eeeeee")
         part_frame.pack(fill="x", padx=50, pady=5)
 
-        label = tk.Label(part_frame, text=part["name"] + " \u2013 $" + str(part["price"]), bg="#eeeeee")
+        label = tk.Label(
+            part_frame,
+            text=part["name"] + " x" + str(quantity) + " \u2013 $" + str(subtotal),
+            bg="#eeeeee"
+        )
         label.pack(side="left", padx=10)
 
         remove_button = tk.Button(
             part_frame,
-            text="REMOVE",
+            text="REMOVE ONE",
             command=lambda pid=part_id: remove_part_from_project(pid, project)
         )
         remove_button.pack(side="right", padx=10)

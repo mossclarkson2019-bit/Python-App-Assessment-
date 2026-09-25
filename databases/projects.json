@@ -3,7 +3,11 @@
         "name": "My E39 Build",
         "owner": "Moss",
         "vehicle": "BMW E39 540i",
-        "parts": []
+        "parts": [
+            2,
+            2,
+            1
+        ]
     },
     {
         "name": "E46 328Ci",
