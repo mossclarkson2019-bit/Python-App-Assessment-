@@ -2,6 +2,7 @@
 import tkinter as tk
 import json
 from tkinter import ttk
+from tkinter import messagebox
 
 #loading the data from the JSON files
 
@@ -520,6 +521,14 @@ def save_projects(): #saves the current state of the projects data to the projec
         json.dump(projects, file, indent=4)
 
 
+def delete_project(project): # deletes a project entirely, with a confirmation popup since this can't be undone
+    confirmed = messagebox.askyesno("Delete Project", "Delete '" + project["name"] + "'? This cannot be undone.")
+    if confirmed:
+        projects.remove(project)
+        save_projects()
+        show_projects()
+
+
 def add_part_to_project(part, project): #function to add a part to the current project, it ads the part id to the projects parts list and saves the updated projects data to projects.json, then shows the part info page for the added part
     project.setdefault("parts", [])
     project["parts"].append(part["id"])
@@ -618,7 +627,7 @@ def show_selected_parts(project): # function to display all parts selected for t
 
 
 
-def open_project(project):
+def open_project(project): # function to open a specific project and display its details
     clear_window()
 
     title = tk.Label(
@@ -650,7 +659,14 @@ def open_project(project):
     command=lambda: show_selected_parts(project)
 )
     selected_parts_button.pack(pady=10)
-    
+
+    delete_button = tk.Button(
+        content,
+        text="DELETE PROJECT",
+        command=lambda: delete_project(project)
+    )
+    delete_button.pack(pady=10)
+
     make_back_button(show_projects)
 
 
