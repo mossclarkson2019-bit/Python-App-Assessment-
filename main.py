@@ -60,7 +60,7 @@ def show_projects():
                 text=project["name"],
                 command=lambda p=project: open_project(p)
             )
-            project_button.pack(pady=5)
+            project_button.pack(pady=10) #increased the pady
 
     make_back_button(show_home)
 
@@ -90,7 +90,7 @@ def make_back_button(destination): #reusable function to create a back button th
             text="BACK",
             command=destination
         )
-        back_button.pack(pady=10)
+        back_button.pack(side="bottom", pady=10) # aligned closer to the bottom for better page filling, this uses crap (proximity) to separate it from the other buttons and make it more clear that it is not another button forward. This also makes it more consistant between pages as the back button is always in the same place 
 
 
 def show_home(): # function to show the home page with options to select or create a project
@@ -107,7 +107,7 @@ def show_home(): # function to show the home page with options to select or crea
         height=3,
         command=select_project
     )
-    select_button.pack(pady=10)
+    select_button.pack(pady=20)
 
     create_button = tk.Button(              # button to create a new project
     content,
@@ -121,7 +121,6 @@ def show_home(): # function to show the home page with options to select or crea
     command=select_create_project
 )
     create_button.pack(pady=10)
-
 
 def show_create_project():                 # function to show the create project page
     clear_window()
@@ -644,7 +643,7 @@ def open_project(project): # function to open a specific project and display its
     font=("Arial", 14),
     bg="white"
     )
-    vehicle_label.pack(pady=10)
+    vehicle_label.pack(pady=20) #increased pady
 
     browse_button = tk.Button(
         content,
@@ -658,14 +657,14 @@ def open_project(project): # function to open a specific project and display its
     text="MY SELECTED PARTS",
     command=lambda: show_selected_parts(project)
 )
-    selected_parts_button.pack(pady=10)
+    selected_parts_button.pack(pady=20) #increased pady
 
     delete_button = tk.Button(
         content,
         text="DELETE PROJECT",
         command=lambda: delete_project(project)
     )
-    delete_button.pack(pady=10)
+    delete_button.pack(pady=20) #increased pady
 
     make_back_button(show_projects)
 
